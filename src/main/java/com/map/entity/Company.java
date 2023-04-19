@@ -11,13 +11,17 @@ import javax.persistence.Table;
 @Table(name = "companyinformation")
 public class Company {
 
+	public Company() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int companyid;
 	@Column(name = "company_name")
 	private String companyname;
 	@Column(name = "company_address")
-    private String companyaddres;
+    private String companyaddress;
     
 	public int getCompanyid() {
 		return companyid;
@@ -32,10 +36,10 @@ public class Company {
 		this.companyname = companyname;
 	}
 	public String getCompanyaddres() {
-		return companyaddres;
+		return companyaddress;
 	}
 	public void setCompanyaddres(String companyaddres) {
-		this.companyaddres = companyaddres;
+		this.companyaddress = companyaddres;
 	}
 	
 	

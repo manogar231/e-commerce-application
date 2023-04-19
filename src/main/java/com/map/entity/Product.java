@@ -21,9 +21,9 @@ import javax.persistence.TemporalType;
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int proid;
-	@Column(name = "pro_name")
-	private String proname;
+	private int productid;
+	@Column(name = "product_name")
+	private String productname;
 	@Column(name = "price")
 	private int price;
 	@Column(name = "status")
@@ -31,7 +31,7 @@ public class Product {
 	@Column(name = "product_created")
 	private LocalDate productcreated;
 	@Column(name = "product_updated")
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	private LocalDate productupdated;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
@@ -56,19 +56,19 @@ public class Product {
 	}
 
 	public int getProid() {
-		return proid;
+		return productid;
 	}
 
 	public void setProid(int proid) {
-		this.proid = proid;
+		this.productid = proid;
 	}
 
 	public String getProname() {
-		return proname;
+		return productname;
 	}
 
 	public void setProname(String proname) {
-		this.proname = proname;
+		this.productname = proname;
 	}
 
 	public int getPrice() {

@@ -3,14 +3,14 @@ package com.map.dto;
 
 public class ProductDto {
 
-	private String proname;
+	private String productname;
 	private int price;
 	
 	public String getProname() {
-		return proname;
+		return productname;
 	}
 	public void setProname(String proname) {
-		this.proname = proname;
+		this.productname = proname;
 	}
 	public int getPrice() {
 		return price;
@@ -20,7 +20,7 @@ public class ProductDto {
 	}
 	public ProductDto(String proname, int price) {
 		super();
-		this.proname = proname;
+		this.productname = proname;
 		this.price = price;
 	}
 	

@@ -5,6 +5,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +18,15 @@ import com.map.repository.CategoryRepository;
 import com.map.repository.ProductRepository;
 import com.map.service.CategoryService;
 
-import javax.transaction.Transactional;
-
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -40,39 +40,48 @@ public class CategoryServiceImpl implements CategoryService {
 
 		Optional<Category> category = categoryRepository.findById(categoryid);
 
-		return category;
+		if (category.isPresent()) {
+			return "Category Is Not Found !!";
+		}
+		List<CategoryDto> category1 = category.stream().map(Category -> modelMapper.map(Category, CategoryDto.class))
+				.collect(Collectors.toList());
+
+		return category1;
 	}
 
 	public List<CategoryDto> getallcategory() {
 
 		List<Category> category = categoryRepository.findAll();
-
 		return category.stream().map(Category -> modelMapper.map(Category, CategoryDto.class))
 				.collect(Collectors.toList());
 	}
 
 	public String deletecategorybyid(int categoryid) {
 
+		Optional<Category> category = categoryRepository.findById(categoryid);
+		if (category.isEmpty()) {
+			return "Category Not Found !!";
+		}
 		categoryRepository.deleteById(categoryid);
 		return "category deleted successfully";
 	}
 
 	public Object updatecategorybyid(CategoryDto categoryDto, int id) throws Exception {
-		Category updatecategory = categoryRepository.findById(id).orElseThrow(()-> new Exception("Category Not Found"));
-
+		Category updatecategory = categoryRepository.findById(id)
+				.orElseThrow(() -> new Exception("Category Not Found"));
 		if (Objects.nonNull(categoryDto.getCategoryname())) {
 			updatecategory.setCategoryname(categoryDto.getCategoryname());
-			
+
 		}
-		return categoryRepository.save(updatecategory); 
+		return categoryRepository.save(updatecategory);
 	}
 
 	@Transactional
 	public void savecategoryproduct(Category category, Product product) {
-		
-		 categoryRepository.save(category);
-	      //  product.setCategory(category);
-	        productRepository.save(product);
+
+		categoryRepository.save(category);
+		// product.setCategory(category);
+		productRepository.save(product);
 
 	}
 

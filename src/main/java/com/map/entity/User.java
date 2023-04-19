@@ -31,7 +31,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userid;
-	@Column(name = "user_name")
+	@Column(name = "user_name" , unique = true)
 	private String username;
 	@Column(name = "mail")
 	private String mail;
@@ -40,7 +40,7 @@ public class User {
 	@Column(name = "create_at")
 	private LocalDate createdAt;
 	@Column(name = "update_at")
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	private LocalDate updatedAt;
 	@Column(name = "password")
 	private String password;

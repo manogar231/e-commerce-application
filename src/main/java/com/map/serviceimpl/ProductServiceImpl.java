@@ -37,16 +37,29 @@ public class ProductServiceImpl implements ProductService {
 
 	public Object findbyid(int proid) {
 		Optional<Product> product = productRepository.findById(proid);
-		return product;
+		if(product.isEmpty()) {
+			return "Product Is Not Found !! ";
+		}
+	List<ProductDto> productDto= product.stream()
+			.map(Product ->modelMapper.map(Product, ProductDto.class))
+			.collect(Collectors.toList());
+		return productDto;
+		
 	}
 
 	public List<ProductDto> getallproduct() {
 		List<Product> product = productRepository.findAll();
-		return product.stream().map(Product -> modelMapper.map(Product, ProductDto.class)).collect(Collectors.toList());
+		return product.stream().map(Product -> modelMapper
+				.map(Product, ProductDto.class))
+				.collect(Collectors.toList());
 	}
 
 	public String deleteproductbyid(int proid) {
 
+		Optional<Product>product=	productRepository.findById(proid);
+		if(product.isEmpty()) {
+			return "Product Not Found !!";
+			}
 		productRepository.deleteById(proid);
 		return "Product deleted successfully";
 	}

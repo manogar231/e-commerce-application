@@ -28,12 +28,12 @@ public class Category {
 	@Column(name = "category_created")
 	private LocalDate categorycreated;
 	@Column(name = "category_updated")
-	@Temporal(TemporalType.DATE)
+//	@Temporal(TemporalType.DATE)
 	private LocalDate categoryupdate;
 
-	@OneToMany(mappedBy = "proid")
-   @JoinColumn(name = "product_info",referencedColumnName = "proid")
-	private List<Product> product;
+//	@OneToMany
+//   @JoinColumn(name = "product_info",referencedColumnName = "productid")
+//	private List<Product> product;
 
 	@PreUpdate
 	public void lastupdate() {

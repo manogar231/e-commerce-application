@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.map.dto.StatusDto;
 import com.map.dto.UserDto;
 import com.map.entity.User;
-import com.map.handler.GlobalExceptionHandler;
 import com.map.repository.UserRepository;
 import com.map.service.UserServices;
 
@@ -43,10 +42,11 @@ public class UserServiceImpl implements UserServices {
 
 		Optional<User> user = userRepository.findById(id);
 		if (user.isEmpty()) {
-			throw new Exception("user is Not Available");
+			return ("User is Not Available");
 		}
-		user.get();
-		return user;
+		List<UserDto> userDto = user.stream().map(User -> modelMapper.map(User, UserDto.class))
+				.collect(Collectors.toList());
+		return userDto;
 	}
 
 	public List<UserDto> getAlluser() {
@@ -56,6 +56,10 @@ public class UserServiceImpl implements UserServices {
 
 	public String deleteUserbyid(int id) {
 
+		Optional<User> user1 = userRepository.findById(id);
+		if (user1.isEmpty()) {
+			return "User Not Found !!";
+		}
 		userRepository.deleteById(id);
 		return "User deleted successfully";
 	}
@@ -73,7 +77,7 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	public String updateUserStatus(int id, StatusDto statusDto) throws Exception {
-		userRepository.updateById(statusDto.getStatus(),id);
+		userRepository.updateById(statusDto.getStatus(), id);
 		return "user's status is updated";
 	}
 }

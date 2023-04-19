@@ -1,6 +1,7 @@
 package com.map.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
 @Entity
 @Table(name = "invoice")
@@ -20,25 +23,34 @@ public class Invoice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int invoiceid;
 	@Column(name = "invoice_number")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long invoicenumber;
+	private String invoicenumber;
 	@Column(name = "total")
 	private Long total;
 	@Column(name = "invoice_created")
 	private LocalDate invoicecreated;
-	
+	@Column(name = "invoice_status")
+	private String status;
+
 	@ManyToOne
 	@JoinColumn(name = "company", referencedColumnName = "companyid")
 	private Company company;
-	
+   
+	@Column(columnDefinition = "json")
+	private JsonArrayFormatVisitor productJson;
+
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id",referencedColumnName = "userid")
+	@JoinColumn(name = "user_id", referencedColumnName = "userid")
 	private User user;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "product_id",referencedColumnName = "proid")
-    private Product product;
 	
+	public JsonArrayFormatVisitor getProductJson() {
+		return productJson;
+	}
+
+	public void setProductJson(JsonArrayFormatVisitor productJson) {
+		this.productJson = productJson;
+	}
+
 	public void invoicecreate() {
 		this.invoicecreated = LocalDate.now();
 	}
@@ -51,11 +63,11 @@ public class Invoice {
 		this.invoiceid = invoiceid;
 	}
 
-	public Long getInvoicenumber() {
+	public String getInvoicenumber() {
 		return invoicenumber;
 	}
 
-	public void setInvoicenumber(Long invoicenumber) {
+	public void setInvoicenumber(String invoicenumber) {
 		this.invoicenumber = invoicenumber;
 	}
 
@@ -73,6 +85,30 @@ public class Invoice {
 
 	public void setInvoicecreated(LocalDate invoicecreated) {
 		this.invoicecreated = invoicecreated;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }
