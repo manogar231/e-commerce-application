@@ -40,13 +40,10 @@ public class CategoryServiceImpl implements CategoryService {
 
 		Optional<Category> category = categoryRepository.findById(categoryid);
 
-		if (category.isPresent()) {
+		if (category.isEmpty()) {
 			return "Category Is Not Found !!";
 		}
-		List<CategoryDto> category1 = category.stream().map(Category -> modelMapper.map(Category, CategoryDto.class))
-				.collect(Collectors.toList());
-
-		return category1;
+    	return	modelMapper.map(category, CategoryDto.class);		
 	}
 
 	public List<CategoryDto> getallcategory() {

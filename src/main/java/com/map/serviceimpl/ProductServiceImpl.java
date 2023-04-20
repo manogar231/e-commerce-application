@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 	public Object saveProductInformation(ProductDto product) {
 
 		Product products = new Product();
-		products.setProname(product.getProname());
+		products.setProductname(product.getProductname());
 		products.setPrice(product.getPrice());
 		return productRepository.save(products);
 	}
@@ -40,10 +40,7 @@ public class ProductServiceImpl implements ProductService {
 		if(product.isEmpty()) {
 			return "Product Is Not Found !! ";
 		}
-	List<ProductDto> productDto= product.stream()
-			.map(Product ->modelMapper.map(Product, ProductDto.class))
-			.collect(Collectors.toList());
-		return productDto;
+		return modelMapper.map(product, ProductDto.class);
 		
 	}
 
@@ -67,9 +64,9 @@ public class ProductServiceImpl implements ProductService {
 	public Object updateproductById(ProductDto productDto, int proid) throws Exception {
 
 		Product updateproduct = productRepository.findById(proid).orElseThrow(() -> new Exception("Product not found"));
-		if (Objects.nonNull(productDto.getProname())) {
+		if (Objects.nonNull(productDto.getProductname())) {
 
-			updateproduct.setProname(productDto.getProname());
+			updateproduct.setProductname(productDto.getProductname());
 		}
 		if (Objects.nonNull(productDto.getPrice())) {
 			updateproduct.setPrice(productDto.getPrice());

@@ -8,10 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 //import jakarta.persistence.Column;
 //import jakarta.persistence.Entity;
@@ -40,8 +41,9 @@ public class User {
 	@Column(name = "create_at")
 	private LocalDate createdAt;
 	@Column(name = "update_at")
-//	@Temporal(TemporalType.DATE)
-	private LocalDate updatedAt;
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updatedAt;
 	@Column(name = "password")
 	private String password;
 	@Column(name = "user_status")
@@ -49,10 +51,6 @@ public class User {
 	@Column(name = "last_login")
 	private Date lastlogin;
 	
-	@PreUpdate
-	public void lastupdate() {
-		this.updatedAt=LocalDate.now();
-	}
 	public User() {
 		this.createdAt=LocalDate.now();
 	}
@@ -87,10 +85,11 @@ public class User {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
-	public LocalDate getUpdatedAt() {
+	
+	public Date getUpdatedAt() {
 		return updatedAt;
 	}
-	public void setUpdatedAt(LocalDate updatedAt) {
+	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 	public String getPassword() {

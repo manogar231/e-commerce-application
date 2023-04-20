@@ -13,7 +13,7 @@ public class Company {
 
 	public Company() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +32,22 @@ public class Company {
 	public String getCompanyname() {
 		return companyname;
 	}
+	public String getCompanyaddress() {
+		return companyaddress;
+	}
+	public void setCompanyaddress(String companyaddress) {
+		this.companyaddress = companyaddress;
+	}
 	public void setCompanyname(String companyname) {
 		this.companyname = companyname;
 	}
-	public String getCompanyaddres() {
-		return companyaddress;
+	public Company(int companyid, String companyname, String companyaddress) {
+		super();
+		this.companyid = companyid;
+		this.companyname = companyname;
+		this.companyaddress = companyaddress;
 	}
-	public void setCompanyaddres(String companyaddres) {
-		this.companyaddress = companyaddres;
-	}
+	
 	
 	
 	

@@ -1,19 +1,18 @@
 package com.map.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
@@ -28,17 +27,18 @@ public class Category {
 	@Column(name = "category_created")
 	private LocalDate categorycreated;
 	@Column(name = "category_updated")
-//	@Temporal(TemporalType.DATE)
-	private LocalDate categoryupdate;
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date categoryupdate;
 
 //	@OneToMany
 //   @JoinColumn(name = "product_info",referencedColumnName = "productid")
 //	private List<Product> product;
 
-	@PreUpdate
-	public void lastupdate() {
-		this.categoryupdate = LocalDate.now();
-	}
+//	@PreUpdate
+//	public void lastupdate() {
+//		this.categoryupdate = LocalDate.now();
+//	}
 
 	public Category() {
 		this.categorycreated = LocalDate.now();
@@ -59,12 +59,11 @@ public class Category {
 	public void setCategoryname(String categoryname) {
 		this.categoryname = categoryname;
 	}
-
-	public LocalDate getCategoryupdate() {
+	public Date getCategoryupdate() {
 		return categoryupdate;
 	}
 
-	public void setCategoryupdate(LocalDate categoryupdate) {
+	public void setCategoryupdate(Date categoryupdate) {
 		this.categoryupdate = categoryupdate;
 	}
 

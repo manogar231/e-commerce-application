@@ -14,6 +14,7 @@ import com.map.dto.UserDto;
 import com.map.entity.User;
 import com.map.repository.UserRepository;
 import com.map.service.UserServices;
+import com.map.util.UserStatus;
 
 @Service
 public class UserServiceImpl implements UserServices {
@@ -42,11 +43,9 @@ public class UserServiceImpl implements UserServices {
 
 		Optional<User> user = userRepository.findById(id);
 		if (user.isEmpty()) {
-			return ("User is Not Available");
+			return "User is Not Available";
 		}
-		List<UserDto> userDto = user.stream().map(User -> modelMapper.map(User, UserDto.class))
-				.collect(Collectors.toList());
-		return userDto;
+		return modelMapper.map(user,UserDto.class);
 	}
 
 	public List<UserDto> getAlluser() {

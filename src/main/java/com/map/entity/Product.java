@@ -1,6 +1,7 @@
 package com.map.entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,10 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 @Entity
@@ -31,44 +33,28 @@ public class Product {
 	@Column(name = "product_created")
 	private LocalDate productcreated;
 	@Column(name = "product_updated")
-//	@Temporal(TemporalType.DATE)
-	private LocalDate productupdated;
+	@UpdateTimestamp
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date productupdated;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="category_info" ,referencedColumnName = "categoryid")
 	private Category category;
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	@PreUpdate
-	public void latestProductUpdate() {
-		this.productupdated = LocalDate.now();
-	}
-
-	public Product() {
-		this.productcreated = LocalDate.now();
-	}
-
-	public int getProid() {
+	public int getProductid() {
 		return productid;
 	}
 
-	public void setProid(int proid) {
-		this.productid = proid;
+	public void setProductid(int productid) {
+		this.productid = productid;
 	}
 
-	public String getProname() {
+	public String getProductname() {
 		return productname;
 	}
 
-	public void setProname(String proname) {
-		this.productname = proname;
+	public void setProductname(String productname) {
+		this.productname = productname;
 	}
 
 	public int getPrice() {
@@ -77,14 +63,6 @@ public class Product {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public LocalDate getProductupdated() {
-		return productupdated;
-	}
-
-	public void setProductupdated(LocalDate productupdated) {
-		this.productupdated = productupdated;
 	}
 
 	public String getStatus() {
@@ -102,5 +80,21 @@ public class Product {
 	public void setProductcreated(LocalDate productcreated) {
 		this.productcreated = productcreated;
 	}
+	public Date getProductupdated() {
+		return productupdated;
+	}
+
+	public void setProductupdated(Date productupdated) {
+		this.productupdated = productupdated;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 
 }

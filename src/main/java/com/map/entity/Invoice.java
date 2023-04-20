@@ -1,7 +1,6 @@
 package com.map.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,8 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
+import org.springframework.data.annotation.CreatedDate;
+
+import com.map.util.InvoiceStatus;
 
 @Entity
 @Table(name = "invoice")
@@ -25,30 +25,33 @@ public class Invoice {
 	@Column(name = "invoice_number")
 	private String invoicenumber;
 	@Column(name = "total")
-	private Long total;
+	private int total;
 	@Column(name = "invoice_created")
+	@CreatedDate
 	private LocalDate invoicecreated;
 	@Column(name = "invoice_status")
-	private String status;
+	private InvoiceStatus status;
 
 	@ManyToOne
 	@JoinColumn(name = "company", referencedColumnName = "companyid")
 	private Company company;
-   
+    
 	@Column(columnDefinition = "json")
-	private JsonArrayFormatVisitor productJson;
+	private String productJson;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "userid")
 	private User user;
 	
-	
-	public JsonArrayFormatVisitor getProductJson() {
+	 public Invoice() {	
+     	this.invoicecreated=LocalDate.now();
+	};
+	public String getProductJson() {
 		return productJson;
 	}
 
-	public void setProductJson(JsonArrayFormatVisitor productJson) {
-		this.productJson = productJson;
+	public void setProductJson(String string) {
+		this.productJson = string;
 	}
 
 	public void invoicecreate() {
@@ -71,11 +74,11 @@ public class Invoice {
 		this.invoicenumber = invoicenumber;
 	}
 
-	public Long getTotal() {
+	public int getTotal() {
 		return total;
 	}
 
-	public void setTotal(Long total) {
+	public void setTotal(int total) {
 		this.total = total;
 	}
 
@@ -86,15 +89,12 @@ public class Invoice {
 	public void setInvoicecreated(LocalDate invoicecreated) {
 		this.invoicecreated = invoicecreated;
 	}
-
-	public String getStatus() {
+	public InvoiceStatus getStatus() {
 		return status;
 	}
-
-	public void setStatus(String status) {
+	public void setStatus(InvoiceStatus status) {
 		this.status = status;
 	}
-
 	public Company getCompany() {
 		return company;
 	}

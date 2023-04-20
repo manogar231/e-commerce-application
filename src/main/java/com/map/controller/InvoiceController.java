@@ -1,6 +1,7 @@
 package com.map.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.map.dto.InvoiceDto;
 import com.map.service.InvoiceService;
 @Controller
@@ -35,8 +37,8 @@ public class InvoiceController {
 		  return result;
 	  }
 	  @PostMapping("/save")
-	  public Object saveInvoice(@RequestBody InvoiceDto invoiceDto) {
-		  return invoiceService.saveinvoiceinformation(invoiceDto);
+	  public ResponseEntity<Object> saveInvoice(@RequestBody InvoiceDto invoiceDto) throws JsonProcessingException {
+		  return ResponseEntity.ok().body(invoiceService.saveinvoiceinformation(invoiceDto));
 	  }
 	  
 	  

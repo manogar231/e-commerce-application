@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.map.dto.CompanyDto;
-import com.map.dto.UserDto;
 import com.map.entity.Company;
-import com.map.entity.User;
 import com.map.handler.GlobalExceptionHandler;
 import com.map.repository.CompanyRepository;
 import com.map.service.CompanyService;
@@ -29,19 +27,18 @@ public class CompanyServiceImpl implements CompanyService {
 	public Object savecompanyinformation(CompanyDto companyDto) {
 		Company company = new Company();
 		company.setCompanyname(companyDto.getCompanyname());
-		company.setCompanyaddres(companyDto.getCompanyaddres());
+		company.setCompanyaddress(companyDto.getCompanyaddress());
 		companyRepository.save(company);
 		return "Company Saved Successfully";
 	}
 
-	public List<CompanyDto> findcompanyById(Integer id) {
+	public CompanyDto findcompanyById(Integer id) {
 		Optional<Company> company = companyRepository.findcompanybyid(id);
 		if (company.isEmpty()) {
 			System.out.println("Company Not Found!!");
 		}
-		List<CompanyDto> companyDto = company.stream().map(Company -> modelMapper.map(Company, CompanyDto.class))
-				.collect(Collectors.toList());
-		return companyDto;
+		
+		return modelMapper.map(company, CompanyDto.class);
 	}
 
 	public List<CompanyDto> listofcompany() {
@@ -63,8 +60,8 @@ public class CompanyServiceImpl implements CompanyService {
 		if (Objects.nonNull(companyDto.getCompanyname())) {
 			company.setCompanyname(companyDto.getCompanyname());
 		}
-		if (Objects.nonNull(companyDto.getCompanyaddres())) {
-			company.setCompanyaddres(companyDto.getCompanyaddres());
+		if (Objects.nonNull(companyDto.getCompanyaddress())) {
+			company.setCompanyaddress(companyDto.getCompanyaddress());
 		}
 		companyRepository.save(company);
 		return "Company Updated Successfully !!";

@@ -13,12 +13,13 @@ public class CompanyDto {
 		this.companyname = companyname;
 	}
 
-	public String getCompanyaddres() {
+	public String getCompanyaddress() {
 		return companyaddress;
 	}
 
-	public void setCompanyaddres(String companyaddres) {
-		this.companyaddress = companyaddres;
+	public void setCompanyaddress(String companyaddress) {
+		this.companyaddress = companyaddress;
 	}
+
 
 }
