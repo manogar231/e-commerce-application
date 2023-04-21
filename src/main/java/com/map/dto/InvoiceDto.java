@@ -8,7 +8,7 @@ public class InvoiceDto {
 	private String username;
 	private List<ProductDto> product;	
 	private int total;
-	private String companyname;
+	private int companyid;
 	
 	
 	public String getUsername() {
@@ -29,14 +29,11 @@ public class InvoiceDto {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	public String getCompanyname() {
-		return companyname;
+	public int getCompanyid() {
+		return companyid;
 	}
-	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+	public void setCompanyid(int companyid) {
+		this.companyid = companyid;
 	}
-	
-	
-	
 	
 }

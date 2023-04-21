@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.map.entity.User;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 @Transactional
@@ -17,7 +19,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query(value = "update userinfo set user_status =?1 where userid = ?2 ", nativeQuery = true)
 	void updateById(String status, int id);
 
-	User findByUsername(String username);
+	Optional<User> findByUsername(String username);
 
 	User findOneByUsernameAndPassword(String username, String password);
 

@@ -38,7 +38,7 @@ public class CompanyServiceImpl implements CompanyService {
 			System.out.println("Company Not Found!!");
 		}
 		
-		return modelMapper.map(company, CompanyDto.class);
+		return modelMapper.map(company.get(), CompanyDto.class);
 	}
 
 	public List<CompanyDto> listofcompany() {

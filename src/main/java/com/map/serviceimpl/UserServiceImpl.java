@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserServices {
 		if (user.isEmpty()) {
 			return "User is Not Available";
 		}
-		return modelMapper.map(user,UserDto.class);
+		return modelMapper.map(user.get(),UserDto.class);
 	}
 
 	public List<UserDto> getAlluser() {

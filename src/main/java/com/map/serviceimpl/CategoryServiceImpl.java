@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 		if (category.isEmpty()) {
 			return "Category Is Not Found !!";
 		}
-    	return	modelMapper.map(category, CategoryDto.class);		
+    	return	modelMapper.map(category.get(), CategoryDto.class);		
 	}
 
 	public List<CategoryDto> getallcategory() {

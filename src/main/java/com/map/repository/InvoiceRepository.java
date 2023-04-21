@@ -15,6 +15,6 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 	@Modifying
 	@Query(value = "select * from invoice where status='notpaid' " , nativeQuery = true)
 	List<Invoice> getallinvoicebystatus();
-	
+     
 
 }

@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
 		if(product.isEmpty()) {
 			return "Product Is Not Found !! ";
 		}
-		return modelMapper.map(product, ProductDto.class);
+		return modelMapper.map(product.get(), ProductDto.class);
 		
 	}
 
