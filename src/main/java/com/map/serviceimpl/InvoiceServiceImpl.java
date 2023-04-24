@@ -36,11 +36,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 		int totalamount=0;
 		Invoice invoice=new Invoice();
 		Optional<Company> companyoptional=companyRepository.findById(invoiceDto.getCompanyid());	
-		if (companyoptional.isEmpty()) 
+		if (companyoptional.isEmpty()) {
 			throw new  GlobalExceptionHandler();	
+		}
 	   Optional<User> userOptional=userRepository.findByUsername(invoiceDto.getUsername());
-	   if(userOptional.isEmpty()) 
-		   throw new GlobalExceptionHandler();
+	   if(userOptional.isEmpty()) {
+		   throw new GlobalExceptionHandler();  
+	   }
 	   //change the list of product to string and save it in the database	
 		ObjectMapper objectMapper = new ObjectMapper();
 		List<ProductDto> productList = invoiceDto.getProduct();
@@ -51,6 +53,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 		int price=product.getPrice();
 		totalamount=totalamount+price;
 		}
+		Optional<Company> optionalCompany = companyRepository.findById(invoiceDto.getCompanyid());
+		Company company = optionalCompany.orElse(null);
+		invoice.setCompany(company);
+	    Optional<User>optionaluser=userRepository.findByUsername(invoiceDto.getUsername());
+		User user=optionaluser.orElse(null);
+		invoice.setUser(user);
 		invoice.setTotal(totalamount);
 		invoice.setStatus(InvoiceStatus.NOTPAID);
 	    return invoiceRepository.save(invoice);

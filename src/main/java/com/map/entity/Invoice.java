@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,6 +32,7 @@ public class Invoice {
 	@CreatedDate
 	private LocalDate invoicecreated;
 	@Column(name = "invoice_status")
+	@Enumerated(value = EnumType.STRING)
 	private InvoiceStatus status;
 
 	@ManyToOne
@@ -43,7 +46,7 @@ public class Invoice {
 	@JoinColumn(name = "user_id", referencedColumnName = "userid")
 	private User user;
 	
-	 public Invoice() {	
+	 public  void Invoices() {	
      	this.invoicecreated=LocalDate.now();
 	};
 	public String getProductJson() {
@@ -110,5 +113,27 @@ public class Invoice {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
+	public String toString() {
+		return "Invoice [invoiceid=" + invoiceid + ", invoicenumber=" + invoicenumber + ", total=" + total
+				+ ", invoicecreated=" + invoicecreated + ", status=" + status + ", company=" + company
+				+ ", productJson=" + productJson + ", user=" + user + "]";
+	}
+	public Invoice(int invoiceid, String invoicenumber, int total, LocalDate invoicecreated, InvoiceStatus status,
+			Company company, String productJson, User user) {
+		super();
+		this.invoiceid = invoiceid;
+		this.invoicenumber = invoicenumber;
+		this.total = total;
+		this.invoicecreated = invoicecreated;
+		this.status = status;
+		this.company = company;
+		this.productJson = productJson;
+		this.user = user;
+	}
+	public Invoice() {
+		super();
+		
+	}
+	
 }

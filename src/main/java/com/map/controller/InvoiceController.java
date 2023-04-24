@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.map.dto.InvoiceDto;
 import com.map.service.InvoiceService;
 @Controller
-@RequestMapping("/invoice")
+
 public class InvoiceController {
 	
 	@Autowired
 	private InvoiceService invoiceService;
 		
-	  @PostMapping("/save")
+	  @PostMapping("invoice/save")
 	  public ResponseEntity<Object> saveInvoice(@RequestBody InvoiceDto invoiceDto) throws Exception {
 		  return ResponseEntity.ok().body(invoiceService.saveinvoiceinformation(invoiceDto));
 	  }
