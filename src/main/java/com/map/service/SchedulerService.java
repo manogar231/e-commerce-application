@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.map.dto.InvoiceDto;
 import com.map.dto.ProductDto;
@@ -46,15 +47,18 @@ public class SchedulerService {
 				invoiceDto.setTotal(finalInvoice.getTotal());
 				invoiceDto.setCompanyid(finalInvoice.getCompany().getCompanyid());
 				ObjectMapper objectMapper = new ObjectMapper();
-				List<ProductDto> product = objectMapper.readValue(finalInvoice.getProductJson(),new TypeReference<List<ProductDto>>() {});
-				invoiceDto.setProduct(product);
+				objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+				ProductDto product = objectMapper.readValue(finalInvoice.getProductJson(),ProductDto.class);
+				System.out.println(product.toString());
+				
+			//	invoiceDto.setProduct(product);
 
 				String url = "http://localhost:8081/invoice/invoicepdf";
 				HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);
 				HttpEntity<InvoiceDto> request = new HttpEntity<>(invoiceDto, headers);
-				ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-				String responseBody = response.getBody();
+				ResponseEntity<InvoiceDto> response = restTemplate.postForEntity(url, request, InvoiceDto.class);
+			//	InvoiceDto responseBody = response.getBody();
 				
 			}
 		}

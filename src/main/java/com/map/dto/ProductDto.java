@@ -1,5 +1,8 @@
 package com.map.dto;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class ProductDto {
 
@@ -23,5 +26,12 @@ public class ProductDto {
 		this.productname = productname;
 		this.price = price;
 	}
+	
+	 public ProductDto(String json) throws JsonProcessingException {
+	        ObjectMapper objectMapper = new ObjectMapper();
+	        ProductDto productDto = objectMapper.readValue(json, ProductDto.class);
+	        this.productname = productDto.productname;
+	        this.price = productDto.price;
+	    }
 	
 }

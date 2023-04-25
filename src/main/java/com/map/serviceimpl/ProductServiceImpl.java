@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
 	private ModelMapper modelMapper;
 
 	public Object saveProductInformation(ProductDto product) {
-
+		
 		Product products = new Product();
 		products.setProductname(product.getProductname());
 		products.setPrice(product.getPrice());
