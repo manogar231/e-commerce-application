@@ -26,12 +26,23 @@ public class ProductDto {
 		this.productname = productname;
 		this.price = price;
 	}
+	@Override
+    public String toString() {
+        return "Product{" +
+                "productname='" + productname + '\'' +
+                ", price=" + price +
+                '}';
+    }
 	
 	 public ProductDto(String json) throws JsonProcessingException {
 	        ObjectMapper objectMapper = new ObjectMapper();
 	        ProductDto productDto = objectMapper.readValue(json, ProductDto.class);
 	        this.productname = productDto.productname;
 	        this.price = productDto.price;
+	    }
+	 public static ProductDto[] fromJsonString(String jsonString) throws Exception {
+	        ObjectMapper mapper = new ObjectMapper();
+	        return mapper.readValue(jsonString, ProductDto[].class);
 	    }
 	
 }
