@@ -1,6 +1,5 @@
 package com.map.service;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +14,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.map.dto.InvoiceDto;
 import com.map.dto.ProductDto;
 import com.map.entity.Invoice;
@@ -33,7 +29,7 @@ public class SchedulerService {
 	private RestTemplate restTemplate;
     
 	List<ProductDto> productDtos = new ArrayList<>();
-	@Scheduled(fixedDelay = 1000)
+	@Scheduled(fixedDelay = 60000)
 	public void generateinvoice() throws Exception {
 
 		List<Invoice> invoices = invoiceRepository.getallinvoicebystatus();
@@ -48,18 +44,9 @@ public class SchedulerService {
 				InvoiceDto invoiceDto = new InvoiceDto();
 				invoiceDto.setUsername(finalInvoice.getUser().getUsername());
 				invoiceDto.setTotal(finalInvoice.getTotal());
-				invoiceDto.setCompanyid(finalInvoice.getCompany().getCompanyid());
-				ObjectMapper objectMapper = new ObjectMapper();
-				StringReader stringReader = new StringReader(finalInvoice.getProductJson());
-				JsonNode jsonNode = objectMapper.readTree(stringReader);
-				if (jsonNode.isArray()) {
-					ArrayNode arrayNode = (ArrayNode) jsonNode;						  
-					    for (JsonNode node : arrayNode) {
-					        ProductDto dto = objectMapper.treeToValue(node, ProductDto.class);
-					        productDtos.add(dto);
-					    }
-					    invoiceDto.setProduct(productDtos);
-				} 
+				invoiceDto.setCompanyname(finalInvoice.getCompany().getCompanyname());
+				invoiceDto.setProductjsonString(finalInvoice.getProductJson());			
+
 				String url = "http://localhost:8081/invoice/invoicepdf";
      			HttpHeaders headers = new HttpHeaders();
 				headers.setContentType(MediaType.APPLICATION_JSON);

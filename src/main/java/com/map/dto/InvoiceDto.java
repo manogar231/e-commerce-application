@@ -7,8 +7,10 @@ public class InvoiceDto {
 	
 	private String username;
 	private List<ProductDto> product;	
+	private String productjsonString;
 	private int total;
 	private int companyid;
+	private String companyname;
 	
 	
 	public String getUsername() {
@@ -34,6 +36,18 @@ public class InvoiceDto {
 	}
 	public void setCompanyid(int companyid) {
 		this.companyid = companyid;
+	}
+	public String getProductjsonString() {
+		return productjsonString;
+	}
+	public void setProductjsonString(String productjsonString) {
+		this.productjsonString = productjsonString;
+	}
+	public String getCompanyname() {
+		return companyname;
+	}
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
 	}
 	
 }
