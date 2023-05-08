@@ -39,9 +39,9 @@ public class Invoice {
 	@JoinColumn(name = "company", referencedColumnName = "companyid")
 	private Company company;
     
-	@Column(columnDefinition = "json")
+	@Column(name="products")
 	private String productJson;
-
+	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", referencedColumnName = "userid")
 	private User user;

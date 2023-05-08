@@ -50,6 +50,8 @@ public class User {
 	private String status;
 	@Column(name = "last_login")
 	private Date lastlogin;
+	@Column(name = "OTP")
+	private String resetOtp;
 	
 	public User() {
 		this.createdAt=LocalDate.now();
@@ -124,4 +126,11 @@ public class User {
 		this.lastlogin = lastlogin;
 	}
 
+	public String getResetOtp() {
+		return resetOtp;
+	}
+
+	public void setResetOtp(String resetOtp) {
+		this.resetOtp = resetOtp;
+	}     
 }

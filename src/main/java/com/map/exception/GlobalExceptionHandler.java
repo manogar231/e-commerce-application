@@ -1,4 +1,4 @@
-package com.map.handler;
+package com.map.exception;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

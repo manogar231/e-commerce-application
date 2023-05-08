@@ -13,7 +13,7 @@ import com.map.dto.ProductDto;
 import com.map.entity.Company;
 import com.map.entity.Invoice;
 import com.map.entity.User;
-import com.map.handler.GlobalExceptionHandler;
+import com.map.exception.GlobalExceptionHandler;
 import com.map.repository.CompanyRepository;
 import com.map.repository.InvoiceRepository;
 import com.map.repository.UserRepository;

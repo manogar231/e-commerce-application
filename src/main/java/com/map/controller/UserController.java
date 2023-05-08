@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.map.auth.ValidationAnnotation;
 import com.map.dto.StatusDto;
 import com.map.dto.UserDto;
 import com.map.service.UserServices;
@@ -28,27 +29,35 @@ public class UserController {
 	public ResponseEntity<Object> saveUser(@RequestBody UserDto userdto) {
 		return ResponseEntity.ok().body(userservices.saveUserInformation(userdto));
 	}
+
+	@ValidationAnnotation
 	@GetMapping("/{id}")
-	public Object finduserbyid(@PathVariable Integer id ) throws Exception {
+	public Object finduserbyid(@PathVariable Integer id) throws Exception {
 		return userservices.findUserById(id);
 	}
+
+	@ValidationAnnotation
 	@GetMapping("/alluser")
-	public List<UserDto> getallUsers(){
+	public List<UserDto> getallUsers() {
 		return userservices.getAlluser();
 	}
+
+	@ValidationAnnotation
 	@PutMapping("/update/{id}")
-	public Object updateuser(@PathVariable  int id,@RequestBody UserDto user) throws Exception {
-		return userservices.updateUserById(id,user);
+	public Object updateuser(@PathVariable int id, @RequestBody UserDto user) throws Exception {
+		return userservices.updateUserById(id, user);
 	}
-	
+
+	@ValidationAnnotation
 	@DeleteMapping("/delete/{id}")
 	public Object deleteuser(@PathVariable Integer id) {
 		return userservices.deleteUserbyid(id);
 	}
+
+	@ValidationAnnotation
 	@PutMapping("/status/{id}")
-	public String updateUserStatus(@PathVariable int id , @RequestBody StatusDto   statusDto) throws Exception {
-		
-		return userservices.updateUserStatus(id , statusDto);
+	public String updateUserStatus(@PathVariable int id, @RequestBody StatusDto statusDto) throws Exception {
+		return userservices.updateUserStatus(id, statusDto);
 	}
-	
+
 }

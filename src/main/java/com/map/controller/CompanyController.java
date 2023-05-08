@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.map.auth.ValidationAnnotation;
 import com.map.dto.CompanyDto;
-import com.map.handler.GlobalExceptionHandler;
+import com.map.exception.GlobalExceptionHandler;
 import com.map.service.CompanyService;
 
 import java.util.List;
@@ -23,25 +24,28 @@ public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
 	
+	@ValidationAnnotation
 	@PostMapping("/save")
 	public Object SaveCompanyInformation(@RequestBody CompanyDto companyDto) {
 		
 		return companyService.savecompanyinformation(companyDto); 
 	}
-	
+	@ValidationAnnotation
 	@GetMapping("/{id}")
 	public Object finduserbyid(@PathVariable Integer id ) throws Exception {
 		return companyService.findcompanyById(id);
 	}
+	@ValidationAnnotation
 	@GetMapping("/All")
 	public List<CompanyDto> listofObjectcompany() {
 		return companyService.listofcompany();
 	}
+	@ValidationAnnotation
 	@DeleteMapping("/delete/{id}")
 	public String deletecompany(@PathVariable Integer id) {
 		return companyService.deletecompany(id);
 	}
-	
+	@ValidationAnnotation
 	@PutMapping("/update/{id}")
 	public String updatecompany(@PathVariable Integer id ,@RequestBody CompanyDto companyDto)throws GlobalExceptionHandler {
 		return companyService.updatecompany(id , companyDto);

@@ -3,7 +3,7 @@ package com.map.service;
 import java.util.List;
 
 import com.map.dto.CompanyDto;
-import com.map.handler.GlobalExceptionHandler;
+import com.map.exception.GlobalExceptionHandler;
 
 public interface CompanyService {
 

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.map.dto.CompanyDto;
 import com.map.entity.Company;
-import com.map.handler.GlobalExceptionHandler;
+import com.map.exception.GlobalExceptionHandler;
 import com.map.repository.CompanyRepository;
 import com.map.service.CompanyService;
 
